@@ -1,6 +1,7 @@
 services:
   game-night:
     build: .
+    pull_policy: build
     image: game-night:local
     restart: unless-stopped
     ports:
