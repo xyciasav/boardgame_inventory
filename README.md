@@ -13,7 +13,7 @@ In Portainer, open **Stacks > Add stack > Repository** and enter:
 | Compose path | `compose.yml` |
 | Repository authentication | Off (public repository) |
 
-Add `APP_PASSWORD` in environment variables with your own password of at least 12 characters, then deploy. Optionally set `HOST_PORT` (default `3000`). Open `http://YOUR_DOCKER_HOST:3000` and enter the owner password.
+Add `APP_PASSWORD` in environment variables with your own password of at least 12 characters, then deploy. Optionally set `HOST_PORT` (default `43871`). Open `http://YOUR_DOCKER_HOST:43871` and enter the owner password. This uncommon host port avoids common defaults; if it is already in use on your host, choose another `HOST_PORT`.
 
 The same `compose.yml` builds the image from the checked-out Dockerfile and runs it. `pull_policy: build` tells Compose to build locally rather than pull `game-night:local` from a registry. No separate Portainer file or image registry is needed.
 
@@ -94,7 +94,7 @@ For hot reload, start the API with `APP_ORIGIN=http://127.0.0.1:5173`, then run 
 | `COOKIE_SECURE` | Set `true` for HTTPS |
 | `DATA_DIR` | SQLite and photos directory; Docker defaults to `/data` |
 | `PORT` | Container/server port, default `3000`; normally leave unchanged |
-| `HOST_PORT` | Compose host port, default `3000` |
+| `HOST_PORT` | Compose host port, default `43871` |
 | `BGG_API_TOKEN` | Optional approved BGG application token |
 
 Passwords are checked using scrypt; only hashed session tokens are stored. Sessions last up to seven days and expire on restart. Login attempts are rate-limited. Write endpoints check the request origin. The app serves no user collection or photos without a valid session.

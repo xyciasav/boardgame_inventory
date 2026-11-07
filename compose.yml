@@ -5,7 +5,7 @@ services:
     image: game-night:local
     restart: unless-stopped
     ports:
-      - "${HOST_PORT:-3000}:3000"
+      - "${HOST_PORT:-43871}:3000"
     environment:
       APP_PASSWORD: "${APP_PASSWORD:?Set APP_PASSWORD to at least 12 characters}"
       APP_ORIGIN: "${APP_ORIGIN:-}"
