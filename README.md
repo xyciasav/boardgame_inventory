@@ -84,8 +84,8 @@ Requires Node.js 24 or newer. There are no native npm compilation dependencies; 
 
 ```sh
 npm ci
-npm test
 npm run build
+npm test
 # Set APP_PASSWORD in your shell, then:
 npm start
 ```

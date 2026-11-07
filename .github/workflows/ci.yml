@@ -15,8 +15,8 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci --no-audit --no-fund
-      - run: npm test
       - run: npm run build
+      - run: npm test
       - name: Build container
         run: docker build -t game-night:test .
       - name: Verify container health and persistence
