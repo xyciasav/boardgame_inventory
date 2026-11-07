@@ -1,0 +1,20 @@
+services:
+  game-night:
+    build: .
+    image: game-night:local
+    restart: unless-stopped
+    ports:
+      - "${HOST_PORT:-3000}:3000"
+    environment:
+      APP_PASSWORD: "${APP_PASSWORD:?Set APP_PASSWORD to at least 12 characters}"
+      APP_ORIGIN: "${APP_ORIGIN:-}"
+      COOKIE_SECURE: "${COOKIE_SECURE:-false}"
+      BGG_API_TOKEN: "${BGG_API_TOKEN:-}"
+    volumes:
+      - game-night-data:/data
+    init: true
+    security_opt:
+      - no-new-privileges:true
+volumes:
+  game-night-data:
+    name: game-night-data

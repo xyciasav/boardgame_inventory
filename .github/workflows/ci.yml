@@ -1,0 +1,41 @@
+name: Check app and container
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm test
+      - run: npm run build
+      - name: Build container
+        run: docker build -t game-night:test .
+      - name: Verify container health and persistence
+        shell: bash
+        run: |
+          password=$(openssl rand -hex 24)
+          docker volume create game-night-test
+          docker run -d --name game-night-test -p 3000:3000 -e APP_PASSWORD="$password" -v game-night-test:/data game-night:test
+          for i in $(seq 1 30); do
+            if curl --fail --silent http://localhost:3000/healthz; then break; fi
+            sleep 2
+          done
+          curl --fail http://localhost:3000/healthz
+          docker exec game-night-test node -e "const fs=require('node:fs');if(!fs.existsSync('/data/game-night.sqlite'))process.exit(1)"
+          docker restart game-night-test
+          for i in $(seq 1 30); do
+            if curl --fail --silent http://localhost:3000/healthz; then break; fi
+            sleep 2
+          done
+          curl --fail http://localhost:3000/healthz
+          docker rm -f game-night-test
+          docker volume rm game-night-test
