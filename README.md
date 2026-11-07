@@ -45,6 +45,7 @@ For a local checkout, run `git pull --ff-only` followed by `docker compose up -d
 
 ## Features
 
+- Phone-first Tonight screen, player-count shortcuts, labeled bottom navigation, and large touch controls. Recommendations show the top three first, with more options available. Forms use bottom sheets on phones and ratings stay easy to reach.
 - Visual owned-game library, search and style filters, editable metadata, starter catalog, manual game entry, and uploaded box photos.
 - Simple player profiles with favorite styles and notes.
 - Suggestions filtered by player count, time, and mood. Previous ratings of the exact game carry the most weight; preferences and similar-game ratings help with new picks. Reasons are shown next to each suggestion.
